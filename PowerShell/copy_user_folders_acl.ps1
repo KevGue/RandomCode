@@ -1,15 +1,18 @@
 #VARIABLES
-#EDIT THESE Four
+#EDIT THESE FOUR
+
 #Only these folders will be copied
 $folderstocopy = @('Documents', 'Downloads', 'Pictures')
 #Where to create the new folders and copy the files
 $destinationfolder = "C:\temp\powershell\destination"
 #Where the folders to copy lie
 $basefolder = "C:\temp\powershell\users"
-#All the folders in the following path will be looked at
-$sourcefolders = Get-ChildItem -Path $basefolder
 #Path to a logfile
 $logfilepath = "C:\temp\powershell\copylog.txt"
+
+#All the folders in the following path will be looked at
+$sourcefolders = Get-ChildItem -Path $basefolder
+
 
 #Each user folder is processed individually
 foreach ($baseuserfolder in $sourcefolders) {
