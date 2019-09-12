@@ -1,14 +1,15 @@
 #VARIABLES
-#EDIT THESE THREE
+#EDIT THESE Four
 #Only these folders will be copied
 $folderstocopy = @('Documents', 'Downloads', 'Pictures')
 #Where to create the new folders and copy the files
 $destinationfolder = "C:\temp\powershell\destination"
 #Where the folders to copy lie
 $basefolder = "C:\temp\powershell\users"
-
 #All the folders in the following path will be looked at
 $sourcefolders = Get-ChildItem -Path $basefolder
+#Path to a logfile
+$logfilepath = "C:\temp\powershell\copylog.txt"
 
 #Each user folder is processed individually
 foreach ($baseuserfolder in $sourcefolders) {
@@ -29,7 +30,7 @@ foreach ($baseuserfolder in $sourcefolders) {
         if ($folderstocopy.Contains($folder.Name)) {
             #it is being copied recursively
             #ACLs are being inherited automatically from the parent
-            Copy-Item -Path $folder.FullName -Destination $destinationfolder\$($folder.Parent.Name) -Recurse -Verbose
+            Copy-Item -Path $folder.FullName -Destination $destinationfolder\$($folder.Parent.Name) -Recurse -Verbose -PassThru | Out-File -FilePath $logfilepath -Append
 
         }#if folder is in array
     }#foreach folder in the user's folder
